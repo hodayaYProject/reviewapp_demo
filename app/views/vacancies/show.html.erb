@@ -1,0 +1,86 @@
+<%= content_for :metatags do %>
+  <%= render("shared/metatags", { title: @vacancy.job_title, description: t('metatags.vacancy_description', job_title: @vacancy.job_title, company_name: @vacancy.company_name, location: @vacancy.location) }) %>
+<% end %>
+
+<section class="view-vacancy">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-2">
+          <%= image_tag("ico-company-default.png", class: 'img-responsive describe-img-company vertical-25') %>
+        </div>
+
+        <div class="col-md-8">
+          <h1 class="job-title-view"><%= @vacancy.job_title %></h1></h1>
+            <table class="table report-vacancy">
+              <tr>
+                <td><span class="vacancy-describe-itens"> <i class="fa fa-briefcase" aria-hidden="true"></i></span></td>
+                <td><%= @vacancy.company_name %></td>
+                <td><%= link_to @vacancy.company_url, @vacancy.company_url, target: 'blank' %></td>
+              </tr>
+
+              <tr>
+                <td><span class="vacancy-describe-itens"> <i class="fa fa-map-marker" aria-hidden="true"></i></span></td>
+                <td><%= @vacancy.location %></td>
+                <!-- <td> CLT - Remote</td> -->
+              </tr>
+
+              <tr>
+                <td><span class="vacancy-describe-itens"> <i class="fa fa-calendar" aria-hidden="true"></i> </span></td>
+                <td><%= I18n.l(@vacancy.created_at, format: :short) %></td>
+              </tr>
+
+          </table>
+        </div>
+
+        <div class="col-md-2">
+          <%= link_to "#", class: "btn btn-primary btn-border-bottom-primary vertical-25 grow", data: { behavior: "apply-to-job", anchor: "how_to_apply_title" } do %>
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <%= t("messages.apply_for_job") %>
+          <% end %>
+
+          <br> <br>
+        </div>
+      </div> <!--/row-->
+    </div><!--/col-md-9-->
+    <div class="col-md-3">
+      <div class="box-share-vacancy">
+        <h4> <i class="fa fa-rocket" aria-hidden="true"></i> <%= t(".recommend") %></h4>
+          <p><%= t(".help_friends") %></p>
+          <%= share_links_to_current_page %>
+      </div>
+  </div><!--/col-md-3-->
+</div>
+</section>
+
+<section class="describe-vacancy">
+  <div class="row">
+    <div class="col-md-12">
+
+    <h3><%= t(".job_description") %></h3>
+      <hr>
+    <p class="text-justify">
+      <%= sanitize(@vacancy.description) %>
+    </p>
+
+    <h3 id="how_to_apply_title" />
+      <%= t(".how_to_apply") %>
+      <a class="btn-hint" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+     </a>
+    </h3>
+      <hr>
+    <div class="collapse" id="collapseExample">
+      <div class="question-apply">
+         <h5></h5>
+         <ol>
+           <%= t(".apply_help_html") %>
+         </ol>
+      </div>
+    </div>
+    <p class="text-jusify" id="how_to_apply">
+      <%= @vacancy.how_to_apply %>
+    </p>
+    </div>
+  </div>
+</section>
